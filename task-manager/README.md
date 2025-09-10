@@ -70,8 +70,8 @@ Visit [http://127.0.0.1:5000](http://127.0.0.1:5000) to test endpoints.
 
 ```json
 {
-  "username": "Brian",
-  "password": "mypassword"
+  "username": "johnSmith"
+  
 }
 ```
 
@@ -116,7 +116,7 @@ Authorization: Bearer <your-jwt-token>
 ## 🧪 Running Tests
 
 ```powershell
-pytest -s -v
+pytest -v
 ```
 
 * Runs all unit tests in `tests/` folder
