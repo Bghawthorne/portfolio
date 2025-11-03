@@ -3,10 +3,14 @@ package com.hawthorne_labs.springboot.controllers;
 import com.hawthorne_labs.springboot.entities.Employee;
 import com.hawthorne_labs.springboot.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -26,19 +30,38 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployee(@PathVariable Long id) {
-        return employeeService.findById(id);
+    public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
+        try {
+            Employee emp = employeeService.findById(id);
+            return ResponseEntity.ok(emp); // 200 OK
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 404 Not Found
+        }
     }
 
     @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.save(employee);
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+        Employee savedEmployee = employeeService.save(employee);
+
+        // Build the URI for the newly created resource
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()      // /employees
+                .path("/{id}")             // /employees/{id}
+                .buildAndExpand(savedEmployee.getId())
+                .toUri();
+
+        return ResponseEntity.created(location) // sets 201 Created and Location header
+                .body(savedEmployee); // include created entity in response body
     }
 
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
-        employee.setId(id);
-        return employeeService.save(employee);
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        try {
+            employee.setId(id);
+            return ResponseEntity.ok(employeeService.save(employee));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 404 Not Found
+        }
     }
 
     @DeleteMapping("/{id}")
