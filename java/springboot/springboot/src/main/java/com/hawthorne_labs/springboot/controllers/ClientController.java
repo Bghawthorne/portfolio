@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/Clients")
+@RequestMapping("/api/clients")
 @RequiredArgsConstructor
 public class ClientController {
 
