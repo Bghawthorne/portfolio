@@ -78,14 +78,14 @@ public class ScheduleControllerTest {
     @Test
     void testCreateSchedule() throws Exception {
         Schedule newSchedule = Schedule.builder()
-                .scheduleStart(LocalDateTime.of(2025, 11, 4, 14, 0))
-                .scheduleEnd(LocalDateTime.of(2025, 11, 4, 15, 0))
+                .start(LocalDateTime.of(2025, 11, 4, 14, 0))
+                .end(LocalDateTime.of(2025, 11, 4, 15, 0))
                 .build();
 
         Schedule savedSchedule = Schedule.builder()
                 .id(3L)
-                .scheduleStart(newSchedule.getScheduleStart())
-                .scheduleEnd(newSchedule.getScheduleEnd())
+                .start(newSchedule.getStart())
+                .end(newSchedule.getEnd())
                 .build();
 
         Mockito.when(scheduleService.saveSchedule(any(Schedule.class))).thenReturn(savedSchedule);

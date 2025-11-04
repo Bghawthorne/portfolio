@@ -1,9 +1,6 @@
 package com.hawthorne_labs.springboot.entities;
 
-import com.hawthorne_labs.springboot.entities.Client;
-import com.hawthorne_labs.springboot.entities.Employee;
-import com.hawthorne_labs.springboot.entities.Charge;
-import com.hawthorne_labs.springboot.entities.Payment;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,7 +18,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor // Lombok generates an all-args constructor
 @Builder            // Optional: allows using builder pattern
 public class Schedule {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

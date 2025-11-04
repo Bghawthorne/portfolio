@@ -26,8 +26,8 @@ class ScheduleServiceTest {
     @Test
     void testSaveAndRetrieveSchedule() {
         Schedule schedule = Schedule.builder()
-                .scheduleStart(LocalDateTime.of(2025, 11, 4, 9, 0))
-                .scheduleEnd(LocalDateTime.of(2025, 11, 4, 10, 30))
+                .start(LocalDateTime.of(2025, 11, 4, 9, 0))
+                .end(LocalDateTime.of(2025, 11, 4, 10, 30))
                 .build();
 
         // Save schedule
@@ -49,8 +49,8 @@ class ScheduleServiceTest {
     @Test
     void testDeleteSchedule() {
         Schedule schedule = Schedule.builder()
-                .scheduleStart(LocalDateTime.now())
-                .scheduleEnd(LocalDateTime.now().plusHours(1))
+                .start(LocalDateTime.now())
+                .end(LocalDateTime.now().plusHours(1))
                 .build();
 
         Schedule saved = scheduleService.saveSchedule(schedule);
