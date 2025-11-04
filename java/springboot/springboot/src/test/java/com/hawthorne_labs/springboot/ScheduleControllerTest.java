@@ -42,14 +42,14 @@ public class ScheduleControllerTest {
     void setUp() {
         schedule1 = Schedule.builder()
                 .id(1L)
-                .scheduleStart(LocalDateTime.of(2025, 11, 4, 9, 0))
-                .scheduleEnd(LocalDateTime.of(2025, 11, 4, 10, 0))
+                .start(LocalDateTime.of(2025, 11, 4, 9, 0))
+                .end(LocalDateTime.of(2025, 11, 4, 10, 0))
                 .build();
 
         schedule2 = Schedule.builder()
                 .id(2L)
-                .scheduleStart(LocalDateTime.of(2025, 11, 4, 11, 0))
-                .scheduleEnd(LocalDateTime.of(2025, 11, 4, 12, 30))
+                .start(LocalDateTime.of(2025, 11, 4, 11, 0))
+                .end(LocalDateTime.of(2025, 11, 4, 12, 30))
                 .build();
     }
 
