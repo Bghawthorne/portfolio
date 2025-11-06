@@ -1,5 +1,6 @@
 package com.hawthorne_labs.springboot.controllers;
 
+import com.hawthorne_labs.springboot.dto.EmployeeDTO;
 import com.hawthorne_labs.springboot.entities.Employee;
 import com.hawthorne_labs.springboot.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +21,19 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
-        return employeeService.findAll();
+    public List<EmployeeDTO> getAllEmployees() {
+        return employeeService.findAllDTOs();
     }
 
     @GetMapping("/active")
-    public List<Employee> getActiveEmployees() {
+    public List<EmployeeDTO> getActiveEmployees() {
         return employeeService.findActiveEmployees();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
+    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Long id) {
         try {
-            Employee emp = employeeService.findById(id);
+            EmployeeDTO emp = employeeService.findById(id);
             return ResponseEntity.ok(emp); // 200 OK
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 404 Not Found

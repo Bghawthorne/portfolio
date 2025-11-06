@@ -40,7 +40,7 @@ public class Charge {
     private String description;
 
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true )
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 

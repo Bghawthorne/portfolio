@@ -41,18 +41,18 @@ public class Schedule {
 
 
     @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "client_id", nullable = true)
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id", nullable = true)
     private Employee employee;
 
     @OneToOne(optional=false, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "payment_id", referencedColumnName = "id")
     private Payment payment;
 
-    @OneToOne(optional = false,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(optional = true,cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "charge_id", referencedColumnName = "id")
     private Charge charge;
 

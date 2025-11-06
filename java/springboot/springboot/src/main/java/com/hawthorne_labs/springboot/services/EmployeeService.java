@@ -1,5 +1,6 @@
 package com.hawthorne_labs.springboot.services;
 
+import com.hawthorne_labs.springboot.dto.EmployeeDTO;
 import com.hawthorne_labs.springboot.entities.Employee;
 import com.hawthorne_labs.springboot.repositories.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +21,25 @@ public class EmployeeService {
     }
 
     // Find employee by ID
-    public Employee findById(Long id) {
-        return employeeRepository.findById(id)
+    public EmployeeDTO findById(Long id) {
+        Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Employee not found with id: " + id));
+
+        return dtoMapper.toEmployeeDTO(employee);
     }
 
     // Return all employees
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> findAllDTOs() {
+        return employeeRepository.findAll()
+                .stream()
+                .map(dtoMapper::toEmployeeDTO)
+                .toList();
     }
-
     // Return only active employees
-    public List<Employee> findActiveEmployees() {
-        return employeeRepository.findByIsActiveTrue();
+    public List<EmployeeDTO> findActiveEmployees() {
+        return employeeRepository.findByIsActiveTrue().stream()
+                .map(dtoMapper::toEmployeeDTO)
+                .toList();
     }
 
     // Delete employee by ID
