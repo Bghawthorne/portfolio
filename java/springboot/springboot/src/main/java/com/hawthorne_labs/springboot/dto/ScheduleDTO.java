@@ -8,5 +8,6 @@ public record ScheduleDTO(
         LocalDateTime end,
         float duration,
         String googleUrl,
-        PaymentDTO payment
+        PaymentDTO payment,
+        ChargeDTO charge
 ) {}

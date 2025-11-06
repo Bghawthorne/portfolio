@@ -1,14 +1,14 @@
 package com.hawthorne_labs.springboot.dto;
 
-import com.hawthorne_labs.springboot.types.PaymentType;
+import com.hawthorne_labs.springboot.types.ChargeType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record PaymentDTO(
+public record ChargeDTO(
         Long id,
         BigDecimal amount,
-        PaymentType type,
+        ChargeType type,
         String description,
-        LocalDate paymentDate
+        LocalDate chargeDate
 ) {}

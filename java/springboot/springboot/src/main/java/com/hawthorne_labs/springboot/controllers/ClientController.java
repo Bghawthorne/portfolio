@@ -1,5 +1,6 @@
 package com.hawthorne_labs.springboot.controllers;
 
+import com.hawthorne_labs.springboot.dto.ClientDTO;
 import com.hawthorne_labs.springboot.entities.Client;
 import com.hawthorne_labs.springboot.services.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -20,20 +21,20 @@ public class ClientController {
     private final ClientService ClientService;
 
     @GetMapping
-    public List<Client> getAllClients() {
+    public List<ClientDTO> getAllClients() {
         return ClientService.findAll();
     }
 
     @GetMapping("/active")
-    public List<Client> getActiveClients() {
+    public List<ClientDTO> getActiveClients() {
         return ClientService.findActiveClients();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getClient(@PathVariable Long id) {
+    public ResponseEntity<ClientDTO> getClient(@PathVariable Long id) {
         try {
-            Client emp = ClientService.findById(id);
-            return ResponseEntity.ok(emp); // 200 OK
+            ClientDTO cli = ClientService.findById(id);
+            return ResponseEntity.ok(cli); // 200 OK
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 404 Not Found
         }

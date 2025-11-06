@@ -52,7 +52,7 @@ public class Schedule {
     @JoinColumn(name = "payment_id", referencedColumnName = "id")
     private Payment payment;
 
-    @OneToOne(optional = true,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(optional =false,cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "charge_id", referencedColumnName = "id")
     private Charge charge;
 

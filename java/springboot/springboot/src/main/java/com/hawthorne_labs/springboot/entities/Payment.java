@@ -39,7 +39,7 @@ public class Payment {
     private String description;
 
 
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 

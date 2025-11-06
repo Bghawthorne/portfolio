@@ -1,5 +1,6 @@
 package com.hawthorne_labs.springboot.services;
 
+import com.hawthorne_labs.springboot.dto.ClientDTO;
 import com.hawthorne_labs.springboot.entities.Client;
 import com.hawthorne_labs.springboot.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +21,27 @@ public class ClientService {
     }
 
     // Find Client by ID
-    public Client findById(Long id) {
-        return ClientRepository.findById(id)
+    public ClientDTO findById(Long id) {
+        Client client = ClientRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Client not found with id: " + id));
+        return dtoMapper.toClientDTO(client);
     }
 
     // Return all Clients
-    public List<Client> findAll() {
-        return ClientRepository.findAll();
+    public List<ClientDTO> findAll() {
+        return ClientRepository.findAll()
+                .stream()
+                .map(dtoMapper::toClientDTO)
+                .toList();
     }
 
     // Return only active Clients
-    public List<Client> findActiveClients() {
-        return ClientRepository.findByIsActiveTrue();
+    public List<ClientDTO> findActiveClients() {
+
+        return ClientRepository.findByIsActiveTrue()
+                .stream()
+                .map(dtoMapper::toClientDTO)
+                .toList();
     }
 
     // Delete Client by ID

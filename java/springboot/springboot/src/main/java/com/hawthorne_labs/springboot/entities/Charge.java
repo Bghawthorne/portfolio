@@ -36,11 +36,11 @@ public class Charge {
     @Column(nullable=false)
     private BigDecimal amount;
 
-    @Column(nullable=true)
+    //@Column(nullable=true)
     private String description;
 
 
-    @ManyToOne(optional = true )
+    @ManyToOne(optional = false)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
