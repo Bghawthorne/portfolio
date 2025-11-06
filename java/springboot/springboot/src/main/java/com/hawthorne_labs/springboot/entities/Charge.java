@@ -36,8 +36,14 @@ public class Charge {
     @Column(nullable=false)
     private BigDecimal amount;
 
-    //@Column(nullable=true)
+    @Column(nullable=true)
     private String description;
+
+    @Column(nullable=false)
+    private Boolean isHoliday;
+
+    @Column(nullable=false)
+    private Boolean isWeekend;
 
 
     @ManyToOne(optional = false)

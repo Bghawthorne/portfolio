@@ -44,7 +44,7 @@ public class Schedule {
     @JoinColumn(name = "client_id", nullable = true)
     private Client client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = true)
     private Employee employee;
 

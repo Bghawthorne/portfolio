@@ -10,5 +10,7 @@ public record PaymentDTO(
         BigDecimal amount,
         PaymentType type,
         String description,
-        LocalDate paymentDate
+        LocalDate paymentDate,
+        Boolean isHoliday,
+        Boolean isWeekend
 ) {}

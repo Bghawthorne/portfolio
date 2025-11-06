@@ -38,6 +38,11 @@ public class Payment {
     @Column(nullable=true)
     private String description;
 
+    @Column(name="holiday", nullable = false)
+    private Boolean isHoliday;
+
+    @Column(nullable=false, name = "weekend")
+    private Boolean isWeekend;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")

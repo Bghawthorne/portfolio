@@ -10,5 +10,7 @@ public record ChargeDTO(
         BigDecimal amount,
         ChargeType type,
         String description,
-        LocalDate chargeDate
+        LocalDate chargeDate,
+        Boolean isHoliday,
+        Boolean inWeekend
 ) {}

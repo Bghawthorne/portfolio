@@ -79,7 +79,9 @@ public class dtoMapper {
                 payment.getAmount(),
                 payment.getType(),
                 payment.getDescription(),
-                payment.getPaymentDate()
+                payment.getPaymentDate(),
+                payment.getIsHoliday(),
+                payment.getIsWeekend()
         );
     }
 
@@ -89,7 +91,9 @@ public class dtoMapper {
                 charge.getAmount(),
                 charge.getType(),
                 charge.getDescription(),
-                charge.getChargeDate()
+                charge.getChargeDate(),
+                charge.getIsHoliday(),
+                charge.getIsWeekend()
         );
     }
 }
