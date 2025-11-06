@@ -48,10 +48,12 @@ public class Schedule {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @OneToOne(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(optional=false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "payment_id", referencedColumnName = "id")
     private Payment payment;
 
-    @OneToOne(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(optional = false,cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "charge_id", referencedColumnName = "id")
     private Charge charge;
 
 

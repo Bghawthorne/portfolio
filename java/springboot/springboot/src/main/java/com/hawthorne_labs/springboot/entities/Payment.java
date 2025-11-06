@@ -29,6 +29,7 @@ public class Payment {
     private LocalDate paymentDate;
 
     @Column(nullable=false)
+    @Enumerated(EnumType.STRING)
     private PaymentType type;
 
     @Column(nullable=false)
@@ -38,12 +39,11 @@ public class Payment {
     private String description;
 
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
-    @OneToOne
-    @JoinColumn(name = "schedule_id")
+    @OneToOne(mappedBy = "payment")
     private Schedule schedule;
 
     @CreationTimestamp

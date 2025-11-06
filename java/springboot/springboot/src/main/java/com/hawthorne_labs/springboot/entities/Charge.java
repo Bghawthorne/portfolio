@@ -30,6 +30,7 @@ public class Charge {
     private LocalDate chargeDate;
 
     @Column(nullable=false)
+    @Enumerated(EnumType.STRING)
     private ChargeType type;
 
     @Column(nullable=false)
@@ -39,12 +40,11 @@ public class Charge {
     private String description;
 
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
-    @OneToOne
-    @JoinColumn(name = "schedule_id")
+    @OneToOne(mappedBy = "charge")
     private Schedule schedule;
 
     @CreationTimestamp
