@@ -1,7 +1,9 @@
 package com.hawthorne_labs.springboot.controllers;
 
+import com.hawthorne_labs.springboot.dto.ScheduleDTO;
 import com.hawthorne_labs.springboot.entities.Schedule;
 import com.hawthorne_labs.springboot.services.ScheduleService;
+import com.hawthorne_labs.springboot.services.DtoMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +14,10 @@ import java.util.List;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
-
+    private final DtoMapper dtoMapper;
     public ScheduleController(ScheduleService scheduleService) {
         this.scheduleService = scheduleService;
+        this.dtoMapper = dtoMapper;
     }
 
     // Get all schedules
@@ -25,27 +28,30 @@ public class ScheduleController {
 
     // Get schedule by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Schedule> getScheduleById(@PathVariable Long id) {
-        return scheduleService.getScheduleById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+    public ResponseEntity<ScheduleDTO> getScheduleById(@PathVariable Long id) {
+        Schedule schedule;
+        schedule = scheduleService.getScheduleById(id)
+                .orElseThrow(() -> new; (HttpStatus.NOT_FOUND, "Schedule not found"));
+        ScheduleDTO scheduleDTO = dtoMapper.toScheduleDTO(schedule);
+        return ResponseEntity.ok(scheduleDTO);
 
     // Create a new schedule
     @PostMapping
-    public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule schedule) {
-        Schedule saved = scheduleService.saveSchedule(schedule);
+    public ResponseEntity<ScheduleDTO> createSchedule(@RequestBody Schedule schedule) {
+        ScheduleDTO saved = scheduleService.saveSchedule(schedule);
         return ResponseEntity.ok(saved);
     }
 
     // Update an existing schedule
     @PutMapping("/{id}")
-    public ResponseEntity<Schedule> updateSchedule(@PathVariable Long id, @RequestBody Schedule schedule) {
+    public ResponseEntity<ScheduleDTO> updateSchedule(@PathVariable Long id, @RequestBody Schedule schedule) {
+
+
         return scheduleService.getScheduleById(id)
                 .map(existing -> {
                     existing.setStart(schedule.getStart());
                     existing.setEnd(schedule.getEnd());
-                    Schedule updated = scheduleService.saveSchedule(existing);
+                    ScheduleDTO updated = scheduleService.saveSchedule(existing);
                     return ResponseEntity.ok(updated);
                 })
                 .orElse(ResponseEntity.notFound().build());

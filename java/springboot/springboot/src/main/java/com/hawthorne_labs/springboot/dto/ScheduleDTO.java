@@ -9,5 +9,7 @@ public record ScheduleDTO(
         float duration,
         String googleUrl,
         PaymentDTO payment,
-        ChargeDTO charge
+        ChargeDTO charge,
+        EmployeeDTO employee,
+        ClientDTO client
 ) {}

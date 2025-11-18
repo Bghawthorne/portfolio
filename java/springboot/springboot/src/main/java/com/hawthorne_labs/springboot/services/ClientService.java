@@ -24,14 +24,14 @@ public class ClientService {
     public ClientDTO findById(Long id) {
         Client client = ClientRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Client not found with id: " + id));
-        return dtoMapper.toClientDTO(client);
+        return DtoMapper.toClientDTO(client);
     }
 
     // Return all Clients
     public List<ClientDTO> findAll() {
         return ClientRepository.findAll()
                 .stream()
-                .map(dtoMapper::toClientDTO)
+                .map(DtoMapper::toClientDTO)
                 .toList();
     }
 
@@ -40,7 +40,7 @@ public class ClientService {
 
         return ClientRepository.findByIsActiveTrue()
                 .stream()
-                .map(dtoMapper::toClientDTO)
+                .map(DtoMapper::toClientDTO)
                 .toList();
     }
 
