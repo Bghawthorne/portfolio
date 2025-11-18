@@ -2,21 +2,22 @@ package com.hawthorne_labs.springboot.services;
 
 import com.hawthorne_labs.springboot.dto.*;
 import com.hawthorne_labs.springboot.entities.*;
+import com.hawthorne_labs.springboot.utils.build.ResourceBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class dtoMapper {
+public class DtoMapper {
 
     public static EmployeeDTO toEmployeeDTO(Employee employee) {
         List<ScheduleDTO> schedules = employee.getSchedules() == null ? List.of() :
                 employee.getSchedules().stream()
-                        .map(dtoMapper::toScheduleDTO)
+                        .map(DtoMapper::toScheduleDTO)
                         .collect(Collectors.toList());
 
         List<PaymentDTO> payments = employee.getPayments() == null ? List.of() :
                 employee.getPayments().stream()
-                        .map(dtoMapper::toPaymentDTO)
+                        .map(DtoMapper::toPaymentDTO)
                         .collect(Collectors.toList());
 
         return new EmployeeDTO(
@@ -34,12 +35,12 @@ public class dtoMapper {
     public static ClientDTO toClientDTO(Client client) {
         List<ScheduleDTO> schedules = client.getSchedules()== null ? List.of() :
                 client.getSchedules().stream()
-                        .map(dtoMapper::toScheduleDTO)
+                        .map(DtoMapper::toScheduleDTO)
                         .collect(Collectors.toList());
 
         List<ChargeDTO> charges = client.getCharges() == null ? List.of() :
                 client.getCharges().stream()
-                        .map(dtoMapper::toChargeDTO)
+                        .map(DtoMapper::toChargeDTO)
                         .collect(Collectors.toList());
 
         return new ClientDTO(
@@ -69,7 +70,10 @@ public class dtoMapper {
                 schedule.getDuration(),
                 schedule.getGoogleUrl(),
                 paymentDTO,
-                chargeDTO
+                chargeDTO,
+                ResourceBuilder.employee(schedule.getEmployee().getId()),
+                ResourceBuilder.client(schedule.getClient().getId())
+
         );
     }
 
@@ -96,4 +100,6 @@ public class dtoMapper {
                 charge.getIsWeekend()
         );
     }
+
+
 }

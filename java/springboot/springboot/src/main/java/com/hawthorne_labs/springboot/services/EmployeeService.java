@@ -25,20 +25,20 @@ public class EmployeeService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Employee not found with id: " + id));
 
-        return dtoMapper.toEmployeeDTO(employee);
+        return DtoMapper.toEmployeeDTO(employee);
     }
 
     // Return all employees
     public List<EmployeeDTO> findAllDTOs() {
         return employeeRepository.findAll()
                 .stream()
-                .map(dtoMapper::toEmployeeDTO)
+                .map(DtoMapper::toEmployeeDTO)
                 .toList();
     }
     // Return only active employees
     public List<EmployeeDTO> findActiveEmployees() {
         return employeeRepository.findByIsActiveTrue().stream()
-                .map(dtoMapper::toEmployeeDTO)
+                .map(DtoMapper::toEmployeeDTO)
                 .toList();
     }
 

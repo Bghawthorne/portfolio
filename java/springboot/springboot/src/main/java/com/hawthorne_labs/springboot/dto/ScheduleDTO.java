@@ -1,5 +1,7 @@
 package com.hawthorne_labs.springboot.dto;
 
+import com.hawthorne_labs.springboot.utils.build.Resource;
+
 import java.time.LocalDateTime;
 
 public record ScheduleDTO(
@@ -10,6 +12,6 @@ public record ScheduleDTO(
         String googleUrl,
         PaymentDTO payment,
         ChargeDTO charge,
-        EmployeeDTO employee,
-        ClientDTO client
+        Resource employeeResource,
+        Resource clientResource
 ) {}

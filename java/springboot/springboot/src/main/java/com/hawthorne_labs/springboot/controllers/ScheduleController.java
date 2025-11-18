@@ -1,6 +1,8 @@
 package com.hawthorne_labs.springboot.controllers;
 
+import com.hawthorne_labs.springboot.dto.ScheduleDTO;
 import com.hawthorne_labs.springboot.entities.Schedule;
+import com.hawthorne_labs.springboot.services.DtoMapper;
 import com.hawthorne_labs.springboot.services.ScheduleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +26,18 @@ public class ScheduleController {
 
     // Get schedule by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Schedule> getScheduleById(@PathVariable Long id) {
+    public ResponseEntity<ScheduleDTO> getScheduleById(@PathVariable Long id) {
         return scheduleService.getScheduleById(id)
+                .map(DtoMapper::toScheduleDTO)
                 .map(ResponseEntity::ok)                     // wrap the entity in 200 OK
                 .orElse(ResponseEntity.notFound().build()); // 404 if not found
     }
     // Create a new schedule
     @PostMapping
-    public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule schedule) {
+    public ResponseEntity<ScheduleDTO> createSchedule(@RequestBody Schedule schedule) {
         Schedule saved = scheduleService.saveSchedule(schedule);
-        return ResponseEntity.ok(saved);
+        ScheduleDTO scheduleDto = DtoMapper.toScheduleDTO(saved);
+        return ResponseEntity.ok(scheduleDto);
     }
 
     // Update an existing schedule

@@ -8,6 +8,8 @@ public class Payroll {
 
     public static BigDecimal calculatePaymentAmount(Employee employee, float hours, Boolean isHoliday, Boolean isWeekend) {
         BigDecimal baseRate = employee.getBaseRate();
+        System.out.println("baseRate: " + baseRate);
+        System.out.println("hours: " + hours);
         if (isHoliday && isWeekend) {
 
             return baseRate
